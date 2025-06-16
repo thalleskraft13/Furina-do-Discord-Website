@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Furina de Fontaine</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Raleway:wght@400;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Raleway', sans-serif;
+      background: radial-gradient(ellipse at top, #0b1c3a 0%, #08172e 70%, #06152a 100%);
+      color: white;
+      overflow-x: hidden;
+    }
+
+    header {
+      background-color: rgba(6, 21, 42, 0.9);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      font-size: 1.5rem;
+      color: #3DD1D9;
+      font-weight: bold;
+      font-family: 'Playfair Display', serif;
+    }
+
+    .logo img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      margin-right: 10px;
+      border: 2px solid #3DD1D9;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: #3DD1D9;
+      font-weight: 600;
+      transition: color 0.3s;
+    }
+
+    .nav-links a:hover {
+      color: #ffffff;
+    }
+
+    .menu-toggle {
+      display: none;
+      font-size: 1.5rem;
+      background: none;
+      border: none;
+      color: white;
+      cursor: pointer;
+    }
+
+    .mobile-menu {
+      display: none;
+      flex-direction: column;
+      background-color: rgba(6, 21, 42, 0.95);
+      position: absolute;
+      top: 60px;
+      left: 0;
+      width: 100%;
+      padding: 1rem 2rem;
+    }
+
+    .mobile-menu a {
+      padding: 0.5rem 0;
+      color: #3DD1D9;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .hero {
+      text-align: center;
+      padding: 4rem 2rem;
+      background: rgba(255, 255, 255, 0.03);
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    .hero img {
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      border: 3px solid #3DD1D9;
+      margin-bottom: 1rem;
+    }
+
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 3rem;
+      color: #3DD1D9;
+      margin-bottom: 1rem;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      color: #DDEEFF;
+      max-width: 700px;
+      margin: 0 auto 2rem;
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .buttons a {
+      padding: 0.75rem 2rem;
+      background: #3DD1D9;
+      color: #081d35;
+      border-radius: 2rem;
+      text-decoration: none;
+      font-weight: 600;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+      transition: transform 0.3s, background 0.3s;
+    }
+
+    .buttons a:hover {
+      background: #29b8c3;
+      transform: scale(1.05);
+    }
+
+    .features {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 2rem;
+      padding: 4rem 2rem;
+    }
+
+    .feature-box {
+      background: rgba(6, 21, 42, 0.8);
+      padding: 2rem;
+      border-radius: 1rem;
+      max-width: 300px;
+      text-align: center;
+      color: #DDEEFF;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+      transition: transform 0.3s;
+    }
+
+    .feature-box:hover {
+      transform: translateY(-5px);
+    }
+
+    .feature-box h3 {
+      color: #3DD1D9;
+      margin-bottom: 1rem;
+      font-size: 1.5rem;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    footer {
+      background-color: #0a1e33;
+      padding: 2rem 1rem;
+      text-align: center;
+      border-top: 2px solid #3DD1D9;
+    }
+
+    footer a {
+      margin: 0 1rem;
+      text-decoration: none;
+      color: #3DD1D9;
+      font-size: 1.8rem;
+      transition: transform 0.2s;
+    }
+
+    footer a:hover {
+      color: #ffffff;
+      transform: scale(1.2);
+    }
+
+    footer p {
+      color: #A0CFE8;
+      font-size: 0.9rem;
+      margin-top: 1rem;
+    }
+
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+      }
+
+      .menu-toggle {
+        display: block;
+      }
+
+      .mobile-menu.show {
+        display: flex;
+      }
+
+      .hero h1 {
+        font-size: 2.2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo">
+      <img src="img/furina.jpg" alt="Furina Bot">
+      Furina de Fontaine
+    </div>
+    <nav class="nav-links">
+      <a href="/comandos">Lista de Comandos</a>
+      <a href="#termos">Termos de Serviço</a>
+    </nav>
+    <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+  </header>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="/comandos">Lista de Comandos</a>
+    <a href="#termos">Termos de Serviço</a>
+  </div>
+
+  <section class="hero">
+    <img src="img/furina.jpg" alt="Furina Bot">
+    <h1>Furina do Discord</h1>
+    <p>"Moi, Furina, a Estrela de Fontaine, chego para transformar este servidor num espetáculo! Com classe, drama e utilidade, sou muito mais do que um simples bot."</p>
+    <div class="buttons">
+      <a href="#">Adicionar</a>
+      <a href="#">Suporte</a>
+      <a href="/dashboard">Gerenciar</a>
+    </div>
+  </section>
+
+  <section class="features">
+    <div class="feature-box">
+      <h3>Genshin Impact</h3>
+      <p>Comandos temáticos, personagens, citações e tudo que um verdadeiro viajante espera de Teyvat.</p>
+    </div>
+    <div class="feature-box">
+      <h3>Diversão</h3>
+      <p>Frases, minigames e reações dramáticas, como só Furina saberia entregar.</p>
+    </div>
+    <div class="feature-box">
+      <h3>Administração</h3>
+      <p>Moderação com estilo, logs elegantes e comandos úteis — com sotaque de Fontaine!</p>
+    </div>
+  </section>
+
+  <footer>
+    <div>
+      <a href="https://youtube.com/seulink" target="_blank"><i class="fab fa-youtube"></i></a>
+      <a href="https://tiktok.com/@seulink" target="_blank"><i class="fab fa-tiktok"></i></a>
+      <a href="https://discord.gg/seulink" target="_blank"><i class="fab fa-discord"></i></a>
+    </div>
+    <p>Feito por <strong>ThallesKraft</strong> com amor e drama 💧</p>
+  </footer>
+
+  <script>
+    function toggleMenu() {
+      const menu = document.getElementById('mobileMenu');
+      menu.classList.toggle('show');
+    }
+  </script>
+
+</body>
+</html>

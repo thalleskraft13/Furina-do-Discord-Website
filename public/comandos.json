@@ -1,0 +1,13 @@
+[{
+  "nome": "/banner-limitado",
+  "descrição": "Revele qual estrela cinco estrelas reina no banner desta cena!",
+  "imagem": "img/cmd/banner.png"
+},{
+  "nome": "/rank-de-aventureiro",
+  "descrição": "Descubra o brilho do seu Rank de Aventureiro.",
+  "imagem": "img/cmd/aventureiro.png"
+},{
+  "nome": "/explorar mondstadt iniciar",
+  "descrição": "Deixe os ventos de liberdade guiarem sua jornada por Mondstadt, onde cada brisa sussurra segredos antigos e aventuras que só os corações destemidos podem desvendar.",
+  "imagem": "img/cmd/explorar-mondstadt.png"
+}]

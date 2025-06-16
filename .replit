@@ -12,3 +12,19 @@ channel = "stable-24_11"
 run = ["node", "index.js"]
 deploymentTarget = "autoscale"
 ignorePorts = false
+
+[[ports]]
+localPort = 3000
+externalPort = 3002
+
+[[ports]]
+localPort = 33037
+externalPort = 3001
+
+[[ports]]
+localPort = 35271
+externalPort = 80
+
+[[ports]]
+localPort = 45865
+externalPort = 3000
