@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Furina do Discord - <%= guild.name %></title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Raleway:wght@400;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Raleway', sans-serif;
+      background: radial-gradient(ellipse at top, #0b1c3a 0%, #08172e 70%, #06152a 100%);
+      color: white;
+      overflow-x: hidden;
+      padding-bottom: 5rem;
+    }
+
+    header {
+      background-color: rgba(6, 21, 42, 0.9);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      font-size: 1.5rem;
+      color: #3DD1D9;
+      font-weight: bold;
+      font-family: 'Playfair Display', serif;
+    }
+
+    .logo img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      margin-right: 10px;
+      border: 2px solid #3DD1D9;
+    }
+
+    .content {
+      padding: 3rem 2rem;
+      text-align: center;
+    }
+
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.2rem;
+      margin-bottom: 1.5rem;
+      color: #3DD1D9;
+    }
+
+    .server-info {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 2rem;
+      gap: 1rem;
+    }
+
+    .server-info img {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      border: 3px solid #3DD1D9;
+      object-fit: cover;
+    }
+
+    .server-info span {
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+
+    .options {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .option-link {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 300px;
+      padding: 1rem;
+      border-radius: 1rem;
+      background-color: rgba(255, 255, 255, 0.05);
+      border: 2px solid #3DD1D9;
+      color: white;
+      font-weight: 600;
+      text-decoration: none;
+      transition: 0.3s ease;
+    }
+
+    .option-link:hover {
+      background-color: #3DD1D9;
+      color: #081d35;
+    }
+
+    .option-link i {
+      margin-right: 0.5rem;
+    }
+
+    @media (max-width: 600px) {
+      .option-link {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo">
+      <img src="https://cdn.discordapp.com/avatars/<%= user.discordId %>/<%= user.avatar %>.<%= user.avatar.startsWith('a_') ? 'gif' : 'png' %>" alt="Avatar do Usuário">
+      Furina do Discord
+    </div>
+  </header>
+
+  <section class="content">
+    <div class="server-info">
+      <img src="https://cdn.discordapp.com/icons/<%= guild.id %>/<%= guild.icon %>.png" alt="Ícone do Servidor" onerror="this.src='/img/sem-servidor.png'">
+      <span><%= guild.name %></span>
+    </div>
+
+    <h1>Gerenciar Servidor</h1>
+
+    <div class="options">
+      <a href="/dashboard/<%= guild.id %>/embed" class="option-link">
+        <i class="fas fa-comment-dots"></i> Mensagem por Embed
+      </a>
+      <a href="/dashboard/<%= guild.id %>/boasvindas" class="option-link">
+        <i class="fas fa-door-open"></i> Mensagens de Boas-vindas
+      </a>
+      <a href="/dashboard/<%= guild.id %>/logs" class="option-link">
+        <i class="fas fa-clipboard-list"></i> Logs de Moderação
+      </a>
+    </div>
+  </section>
+
+</body>
+</html>

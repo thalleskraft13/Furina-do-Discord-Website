@@ -4,7 +4,6 @@ const User = require("./models/User");
 require("dotenv").config();
 
 passport.serializeUser((user, done) => {
-  // Serializa apenas o MongoDB _id como string
   done(null, user._id.toString());
 });
 
@@ -21,10 +20,10 @@ passport.use(new DiscordStrategy({
   clientID: process.env.CLIENT_ID,
   clientSecret: process.env.CLIENT_SECRET,
   callbackURL: process.env.CALLBACK_URL,
-  scope: ["identify", "guilds"]
+  scope: ["identify", "guilds"],
+  state: true // habilita uso do state no OAuth2
 }, async (accessToken, refreshToken, profile, done) => {
   try {
-    // Filtra guilds onde o usuário tem permissão ADMINISTRATOR ou MANAGE_GUILD
     const filteredGuilds = profile.guilds?.filter(guild => {
       const perms = BigInt(guild.permissions);
       return (
@@ -48,7 +47,7 @@ passport.use(new DiscordStrategy({
         icon: g.icon,
         permissions: g.permissions
       })),
-      accessToken // opcional: salvar token no banco para atualizar guilds depois
+      accessToken
     };
 
     if (user) {
@@ -61,7 +60,6 @@ passport.use(new DiscordStrategy({
       });
     }
 
-    // Retorna o objeto Mongoose para o serializeUser funcionar corretamente
     return done(null, user);
 
   } catch (err) {
