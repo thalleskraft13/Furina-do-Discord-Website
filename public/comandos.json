@@ -1,13 +1,37 @@
-[{
-  "nome": "/banner-limitado",
-  "descrição": "Revele qual estrela cinco estrelas reina no banner desta cena!",
-  "imagem": "img/cmd/banner.png"
-},{
-  "nome": "/rank-de-aventureiro",
-  "descrição": "Descubra o brilho do seu Rank de Aventureiro.",
-  "imagem": "img/cmd/aventureiro.png"
-},{
-  "nome": "/explorar mondstadt iniciar",
-  "descrição": "Deixe os ventos de liberdade guiarem sua jornada por Mondstadt, onde cada brisa sussurra segredos antigos e aventuras que só os corações destemidos podem desvendar.",
-  "imagem": "img/cmd/explorar-mondstadt.png"
-}]
+[
+  {
+    "nome": "/banner-limitado",
+    "descrição": "Revele qual estrela cinco estrelas reina no banner desta cena!",
+    "imagem": "img/cmd/banner.png"
+  },
+  {
+    "nome": "/rank-de-aventureiro",
+    "descrição": "Descubra o brilho do seu Rank de Aventureiro.",
+    "imagem": "img/cmd/aventureiro.png"
+  },
+  {
+    "nome": "/explorar mondstadt iniciar",
+    "descrição": "Deixe os ventos de liberdade guiarem sua jornada por Mondstadt, onde cada brisa sussurra segredos antigos e aventuras que só os corações destemidos podem desvendar.",
+    "imagem": "img/cmd/explorar-mondstadt.png"
+  },
+  {
+    "nome": "/explorar-mondstadt-coletar",
+    "descrição": "Resgate suas recompensas da exploração em Mondstadt.",
+    "imagem": "img/cmd/explorar-mondstadt-coletar.png"
+  },
+  {
+    "nome": "/destino",
+    "descrição": "Descubra o destino que as estrelas — ou o caos — traçaram para você!",
+    "imagem": "img/cmd/destino.png"
+  },
+  {
+    "nome": "/modo-drama",
+    "descrição": "Transforme qualquer momento banal em um espetáculo digno da Ópera de Fontaine!",
+    "imagem": "img/cmd/modo-drama.png"
+  },
+  {
+    "nome": "/cancelar",
+    "descrição": "A justiça clama por espetáculo! Julgarei e cancelarei com todo o drama que Fontaine merece!",
+    "imagem": "img/cmd/cancelar.png"
+  }
+]

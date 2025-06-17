@@ -3,6 +3,7 @@ const session = require("express-session");
 const passport = require("./auth");
 const mongoose = require("mongoose");
 const MongoStore = require("connect-mongo");
+const Servidor = require("./models/Servidor")
 const path = require("path");
 require("dotenv").config();
 
@@ -245,6 +246,86 @@ app.post("/dashboard/:guildId/embed", checkAuth, async (req, res) => {
     });
   }
 });
+
+
+
+app.get("/dashboard/:guildId/logs", checkAuth, async (req, res) => {
+  const guildId = req.params.guildId;
+
+  try {
+    const user = await User.findById(req.user._id);
+    if (!user) return res.redirect("/login");
+
+    const guildUser = user.guilds.find(g => g.id === guildId);
+    const guildBot = client.guilds.cache.get(guildId);
+
+    if (!guildUser || !guildBot) return res.status(403).send("Sem acesso.");
+
+    // Filtra todos os canais de texto visíveis ao bot
+    const channels = guildBot.channels.cache
+      .filter(c => c.isTextBased() && c.viewable)
+      .map(c => ({
+        id: c.id,
+        name: c.name,
+        type: c.type
+      }))
+      .sort((a, b) => a.name.localeCompare(b.name));
+
+    // Busca ou cria documento Servidor
+    let db = await Servidor.findOne({ serverId: guildId });
+
+    if (!db) {
+      // Cria documento novo, com serverId correto
+      const novo = new Servidor({ serverId: guildId, logs: { react: false } });
+      await novo.save();
+      db = novo;
+    }
+
+    console.log(db.logs.react)
+
+    // Envia status para o template: logs.react (boolean)
+    res.render("servidor/logs", {
+      user,
+      guild: guildUser,
+      channels,
+      error: null,
+      success: null,
+      logs: db.logs.react
+    });
+  } catch (err) {
+    console.error("Erro ao carregar página de logs:", err);
+    res.status(500).send("Erro ao carregar página de logs.");
+  }
+});
+
+app.post('/dashboard/:guildId/logs', async (req, res) => {
+  const guildId = req.params.guildId;
+  const { activated, selectedChannel } = req.body;
+  console.log(activated, selectedChannel)
+
+  try {
+    let servidor = await Servidor.findOne({ serverId: guildId });
+
+    if (!servidor) {
+      // Cria novo documento se não existir
+      servidor = new Servidor({
+        serverId: guildId,
+        logs: { react: { ativado: false, channel: null } }
+      });
+    }
+
+    servidor.logs.react.ativado = activated;;
+    servidor.logs.react.channel = selectedChannel || null;
+
+    await servidor.save();
+
+    res.redirect(`/dashboard/${guildId}/logs?success=1`);
+  } catch (err) {
+    console.error(err);
+    res.redirect(`/dashboard/${guildId}/logs?error=Erro ao salvar configurações`);
+  }
+});
+
 
 app.listen(process.env.PORT, () => {
   console.log(`🚀 Servidor iniciado em http://localhost:${process.env.PORT}`);
