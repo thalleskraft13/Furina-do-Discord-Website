@@ -334,6 +334,9 @@ app.post('/dashboard/:guildId/logs', async (req, res) => {
   }
 });
 
+app.use((req, res) => {
+  res.status(404).render('nPagina'); 
+});
 
 app.listen(process.env.PORT, () => {
   console.log(`🚀 Servidor iniciado em http://localhost:${process.env.PORT}`);
