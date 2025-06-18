@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Política de Privacidade - Furina do Discord</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Raleway:wght@400;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Raleway', sans-serif;
+      background: radial-gradient(ellipse at top, #0b1c3a 0%, #08172e 70%, #06152a 100%);
+      color: white;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    .menu-toggle {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(6, 21, 42, 0.9);
+      padding: 1rem;
+      color: white;
+    }
+    .menu-toggle img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 2px solid #3DD1D9;
+    }
+    .menu-toggle h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      color: #3DD1D9;
+      margin-left: 1rem;
+      flex-grow: 1;
+    }
+    .toggle-btn {
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+    .sidebar {
+      width: 220px;
+      background: rgba(6, 21, 42, 0.9);
+      height: 100vh;
+      padding: 1rem;
+      position: fixed;
+      top: 0;
+      left: 0;
+      display: none;
+      flex-direction: column;
+    }
+    .sidebar a {
+      color: #DDEEFF;
+      text-decoration: none;
+      margin: 1rem 0;
+      font-weight: 600;
+      transition: color 0.3s;
+    }
+    .sidebar a:hover {
+      color: #3DD1D9;
+    }
+    main {
+      flex: 1;
+      padding: 2rem;
+      margin-left: 0;
+    }
+    section {
+      max-width: 800px;
+      margin: 0 auto;
+      background: rgba(6, 21, 42, 0.8);
+      padding: 2rem;
+      border-radius: 1rem;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+    }
+    h2 {
+      margin-top: 2rem;
+      font-size: 1.5rem;
+      font-family: 'Playfair Display', serif;
+      color: #3DD1D9;
+    }
+    p, li {
+      margin: 1rem 0;
+      line-height: 1.6;
+      color: #DDEEFF;
+    }
+    footer {
+      text-align: center;
+      padding: 2rem;
+      color: #A0CFE8;
+      font-size: 0.9rem;
+    }
+    @media (min-width: 768px) {
+      .sidebar {
+        display: flex;
+      }
+      .menu-toggle {
+        display: none;
+      }
+      main {
+        margin-left: 240px;
+      }
+    }
+  </style>
+  <script>
+    function toggleSidebar() {
+      const sidebar = document.querySelector('.sidebar');
+      sidebar.style.display = sidebar.style.display === 'flex' ? 'none' : 'flex';
+    }
+  </script>
+</head>
+<body>
+  <div class="menu-toggle">
+    <img src="/img/furina.jpg" alt="Logo Furina">
+    <h1>Furina do Discord</h1>
+    <div class="toggle-btn" onclick="toggleSidebar()">
+      <i class="fas fa-bars"></i>
+    </div>
+  </div>
+  <div class="sidebar">
+    <a href="/">Início</a>
+    <a href="/termos">Termos de Serviço</a>
+    <a href="/privacidade">Política de Privacidade</a>
+    <a href="/comandos">Lista de Comandos</a>
+    <a href="https://discord.gg/seulink" target="_blank">Servidor Oficial</a>
+  </div>
+
+  <main>
+    <section>
+      <p><strong>Última atualização:</strong> 18 de junho de 2025</p>
+      <p>Esta Política de Privacidade descreve como coletamos, usamos e protegemos suas informações ao utilizar o bot <strong>Furina do Discord</strong> e seus serviços, incluindo o painel (dashboard).</p>
+
+      <h2>1. Informações Coletadas</h2>
+      <p>O bot pode coletar informações básicas fornecidas pela API do Discord, como:</p>
+      <ul>
+        <li>Seu nome de usuário e ID do Discord</li>
+        <li>Avatar</li>
+        <li>Servidores onde você está e onde o bot está presente</li>
+        <li>Permissões administrativas (apenas para exibição no painel)</li>
+      </ul>
+
+      <h2>2. Uso das Informações</h2>
+      <p>As informações coletadas são utilizadas exclusivamente para oferecer as funcionalidades do bot e do painel de gerenciamento, como:</p>
+      <ul>
+        <li>Exibição dos comandos disponíveis</li>
+        <li>Personalização de funcionalidades no seu servidor</li>
+        <li>Gerenciamento do bot através do dashboard</li>
+      </ul>
+
+      <h2>3. Armazenamento de Dados</h2>
+      <p>O bot armazena apenas os dados necessários para manter suas configurações. Nenhuma informação pessoal é compartilhada com terceiros ou utilizada para fins comerciais.</p>
+
+      <h2>4. Cookies</h2>
+      <p>O painel pode usar cookies para manter sua sessão ativa durante o uso. Esses cookies são temporários e não armazenam informações sensíveis.</p>
+
+      <h2>5. Seus Direitos</h2>
+      <p>Você pode solicitar a exclusão dos dados do seu servidor a qualquer momento através do servidor oficial de suporte.</p>
+
+      <h2>6. Segurança</h2>
+      <p>Nos comprometemos a proteger suas informações com medidas de segurança adequadas contra acessos não autorizados.</p>
+
+      <h2>7. Alterações nesta Política</h2>
+      <p>Esta política poderá ser atualizada periodicamente. Informaremos mudanças significativas no servidor oficial.</p>
+
+      <h2>8. Contato</h2>
+      <p>Para dúvidas ou solicitações, entre em contato:<br>
+      <a href="https://discord.gg/MkneaxC8jY" target="_blank">https://discord.gg/MkneaxC8jY</a></p>
+    </section>
+
+    <footer>
+      <p>&copy; 2025 Furina do Discord - Todos os direitos reservados.</p>
+    </footer>
+  </main>
+</body>
+</html>

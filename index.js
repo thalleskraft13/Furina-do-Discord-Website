@@ -56,6 +56,14 @@ app.get("/comandos", (req, res) => {
   res.render("comandos", { user: req.user });
 });
 
+app.get("/termos", (req, res) => {
+  res.render("termos", { user: req.user });
+})
+
+app.get("/privacidade", (req, res) => {
+  res.render("política-de-privacidade", { user: req.user})
+})
+
 app.get("/login", passport.authenticate("discord"));
 
 app.get("/auth/discord/callback", passport.authenticate("discord", {

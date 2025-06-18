@@ -3,10 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Furina de Fontaine</title>
+  <title>Termos de Serviço - Furina do Discord</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Raleway:wght@400;600&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
   <style>
     * {
       margin: 0;
@@ -93,90 +92,35 @@
       font-weight: 600;
     }
 
-    .hero {
-      text-align: center;
-      padding: 4rem 2rem;
-      background: rgba(255, 255, 255, 0.03);
-      animation: fadeIn 1s ease-in-out;
-    }
-
-    .hero img {
-      width: 90px;
-      height: 90px;
-      border-radius: 50%;
-      border: 3px solid #3DD1D9;
-      margin-bottom: 1rem;
-    }
-
-    .hero h1 {
-      font-family: 'Playfair Display', serif;
-      font-size: 3rem;
-      color: #3DD1D9;
-      margin-bottom: 1rem;
-    }
-
-    .hero p {
-      font-size: 1.2rem;
-      color: #DDEEFF;
-      max-width: 700px;
-      margin: 0 auto 2rem;
-    }
-
-    .buttons {
-      display: flex;
-      justify-content: center;
-      gap: 1rem;
-      flex-wrap: wrap;
-    }
-
-    .buttons a {
-      padding: 0.75rem 2rem;
-      background: #3DD1D9;
-      color: #081d35;
-      border-radius: 2rem;
-      text-decoration: none;
-      font-weight: 600;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-      transition: transform 0.3s, background 0.3s;
-    }
-
-    .buttons a:hover {
-      background: #29b8c3;
-      transform: scale(1.05);
-    }
-
-    .features {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 2rem;
-      padding: 4rem 2rem;
-    }
-
-    .feature-box {
+    main {
+      max-width: 900px;
+      margin: 2rem auto;
       background: rgba(6, 21, 42, 0.8);
       padding: 2rem;
       border-radius: 1rem;
-      max-width: 300px;
-      text-align: center;
-      color: #DDEEFF;
       box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
-      transition: transform 0.3s;
     }
 
-    .feature-box:hover {
-      transform: translateY(-5px);
-    }
-
-    .feature-box h3 {
+    h1, h2 {
+      font-family: 'Playfair Display', serif;
       color: #3DD1D9;
-      margin-bottom: 1rem;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 2.5rem;
+      margin-bottom: 2rem;
+    }
+
+    h2 {
+      margin-top: 2rem;
       font-size: 1.5rem;
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
+    p {
+      margin: 1rem 0;
+      line-height: 1.6;
+      color: #DDEEFF;
     }
 
     footer {
@@ -186,23 +130,9 @@
       border-top: 2px solid #3DD1D9;
     }
 
-    footer a {
-      margin: 0 1rem;
-      text-decoration: none;
-      color: #3DD1D9;
-      font-size: 1.8rem;
-      transition: transform 0.2s;
-    }
-
-    footer a:hover {
-      color: #ffffff;
-      transform: scale(1.2);
-    }
-
     footer p {
       color: #A0CFE8;
       font-size: 0.9rem;
-      margin-top: 1rem;
     }
 
     @media (max-width: 768px) {
@@ -217,18 +147,13 @@
       .mobile-menu.show {
         display: flex;
       }
-
-      .hero h1 {
-        font-size: 2.2rem;
-      }
     }
   </style>
 </head>
 <body>
-
   <header>
     <div class="logo">
-      <img src="img/furina.jpg" alt="Furina Bot">
+      <img src="/img/furina.jpg" alt="Furina Bot">
       Furina do Discord
     </div>
     <nav class="nav-links">
@@ -249,39 +174,30 @@
     <a href="https://discord.gg/https://discord.gg/MkneaxC8jY" target="_blank">Servidor Oficial</a>
   </div>
 
-  <section class="hero">
-    <img src="img/furina.jpg" alt="Furina Bot">
-    <h1>Furina do Discord</h1>
-    <p>"Moi, Furina, a Estrela de Fontaine, chego para transformar este servidor num espetáculo! Com classe, drama e utilidade, sou muito mais do que um simples bot."</p>
-    <div class="buttons">
-      <a href="#">Adicionar</a>
-      <a href="#">Suporte</a>
-      <a href="/dashboard">Gerenciar</a>
-    </div>
-  </section>
+  <main>
+    <h1>Termos de Serviço</h1>
+    <p><strong>Última atualização:</strong> 18 de junho de 2025</p>
+    <p>Ao utilizar o bot <strong>Furina do Discord</strong>, você concorda com os seguintes Termos de Serviço:</p>
 
-  <section class="features">
-    <div class="feature-box">
-      <h3>Genshin Impact</h3>
-      <p>Comandos temáticos, personagens, citações e tudo que um verdadeiro viajante espera de Teyvat.</p>
-    </div>
-    <div class="feature-box">
-      <h3>Diversão</h3>
-      <p>Frases, minigames e reações dramáticas, como só Furina saberia entregar.</p>
-    </div>
-    <div class="feature-box">
-      <h3>Administração</h3>
-      <p>Moderação com estilo, logs elegantes e comandos úteis — com sotaque de Fontaine!</p>
-    </div>
-  </section>
+    <h2>1. Uso do Bot</h2>
+    <p>O bot é fornecido gratuitamente com o objetivo de proporcionar entretenimento e funcionalidades inspiradas no universo de Genshin Impact. Ao utilizá-lo, você concorda em usá-lo de maneira adequada e respeitosa.</p>
+
+    <h2>2. Responsabilidades do Usuário</h2>
+    <p>Você se compromete a não utilizar o bot para qualquer atividade ilegal, abusiva ou contra os Termos de Serviço do Discord (<a href="https://discord.com/terms" target="_blank">discord.com/terms</a>).</p>
+
+    <h2>3. Limitações de Responsabilidade</h2>
+    <p>O desenvolvedor do bot não se responsabiliza por quaisquer perdas, danos ou falhas relacionadas ao uso do bot. O serviço é fornecido "como está", sem garantias.</p>
+
+    <h2>4. Alterações nos Termos</h2>
+    <p>Os termos podem ser atualizados a qualquer momento. Alterações importantes serão comunicadas por meio do servidor de suporte.</p>
+
+    <h2>5. Contato</h2>
+    <p>Para dúvidas ou solicitações, entre em contato pelo servidor oficial:<br>
+    <a href="https://discord.gg/MkneaxC8jY" target="_blank">https://discord.gg/MkneaxC8jY</a></p>
+  </main>
 
   <footer>
-    <div>
-      <a href="https://youtube.com/@furinadodiscord?si=tQzMg-l5YefGbawG" target="_blank"><i class="fab fa-youtube"></i></a>
-      <a href="https://www.tiktok.com/@furina.do.discord?_t=ZM-8xJUebYYff3&_r=1" target="_blank"><i class="fab fa-tiktok"></i></a>
-      <a href="https://discord.gg/MkneaxC8jY" target="_blank"><i class="fab fa-discord"></i></a>
-    </div>
-    <p>Feito por <strong>ThallesKraft</strong> com amor e drama 💧</p>
+    <p>&copy; 2025 Furina do Discord - Todos os direitos reservados.</p>
   </footer>
 
   <script>
@@ -290,6 +206,5 @@
       menu.classList.toggle('show');
     }
   </script>
-
 </body>
 </html>
