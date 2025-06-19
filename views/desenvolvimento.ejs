@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>A Furina do Discord - Página Indisponível</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Raleway:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Raleway', sans-serif;
+      background: radial-gradient(ellipse at top, #0b1c3a 0%, #08172e 70%, #06152a 100%);
+      color: white;
+      overflow-x: hidden;
+      padding-bottom: 5rem;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    header {
+      background-color: rgba(6, 21, 42, 0.9);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      font-size: 1.5rem;
+      color: #3DD1D9;
+      font-weight: bold;
+      font-family: 'Playfair Display', serif;
+    }
+    .logo img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      margin-right: 10px;
+      border: 2px solid #3DD1D9;
+    }
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 220px;
+      background-color: #06152a;
+      padding-top: 80px;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      padding-left: 1rem;
+      z-index: 999;
+    }
+    .sidebar a {
+      color: #3DD1D9;
+      text-decoration: none;
+      font-weight: 600;
+      transition: 0.3s;
+      padding: 0.6rem 0;
+      font-size: 1.1rem;
+    }
+    .sidebar a:hover {
+      color: #ffffff;
+    }
+    .content {
+      margin-left: 240px;
+      padding: 3rem 2rem;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      animation: fadeIn 1s ease-in-out;
+    }
+    .content img {
+      max-width: 220px;
+      width: 100%;
+      height: auto;
+      margin-bottom: 2rem;
+      border-radius: 1rem;
+      box-shadow: 0 0 20px #3DD1D9aa;
+      animation: fadeInUp 1s ease-in-out;
+    }
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.6rem;
+      color: #3DD1D9;
+      margin-bottom: 1rem;
+      animation: fadeInUp 1s ease-in-out;
+    }
+    p {
+      font-size: 1.25rem;
+      color: #A0CFE8;
+      margin-bottom: 3rem;
+      max-width: 420px;
+      animation: fadeInUp 1.2s ease-in-out;
+    }
+    a.button {
+      text-decoration: none;
+      background-color: #3DD1D9;
+      color: #081d35;
+      padding: 1rem 2.5rem;
+      border-radius: 1.5rem;
+      font-weight: 700;
+      font-size: 1.1rem;
+      box-shadow: 0 0 15px #3DD1D9aa;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+      animation: fadeInUp 1.5s ease-in-out;
+    }
+    a.button:hover {
+      background-color: #29b8c3;
+      transform: scale(1.05);
+    }
+    footer {
+      background-color: #0a1e33;
+      padding: 2rem 1rem;
+      text-align: center;
+      border-top: 2px solid #3DD1D9;
+      margin-top: auto;
+    }
+    footer div {
+      margin-bottom: 0.5rem;
+    }
+    footer a {
+      margin: 0 1rem;
+      text-decoration: none;
+      color: #3DD1D9;
+      font-size: 1.8rem;
+      transition: transform 0.2s;
+    }
+    footer a:hover {
+      color: #ffffff;
+      transform: scale(1.2);
+    }
+    footer p {
+      color: #A0CFE8;
+      font-size: 0.9rem;
+    }
+    @media (max-width: 768px) {
+      .sidebar {
+        display: none;
+      }
+      .content {
+        margin-left: 0;
+        padding: 2rem 1rem;
+      }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo">
+      <% if (user.avatar) { %>
+        <img src="https://cdn.discordapp.com/avatars/<%= user.discordId %>/<%= user.avatar %>.<%= user.avatar.startsWith('a_') ? 'gif' : 'png' %>" alt="Avatar de <%= user.username %>" />
+      <% } else { %>
+        <img src="https://cdn.discordapp.com/embed/avatars/<%= parseInt(user.discriminator) % 5 %>.png" alt="Avatar padrão de <%= user.username %>" />
+      <% } %>
+      <%= user.username %>
+    </div>
+  </header>
+
+  <nav class="sidebar">
+    <a href="/">Início</a>
+    <a href="/termos">Termos de Serviço</a>
+    <a href="/privacidade">Política de Privacidade</a>
+    <a href="/comandos">Lista de Comandos</a>
+    <a href="https://discord.gg/MkneaxC8jY" target="_blank">Servidor Oficial</a>
+  </nav>
+
+  <main class="content">
+    <img src="/img/furinaEsperando.png" alt="Furina esperando" />
+    <h1>Oh non, non, non...!</h1>
+    <p>Essa página ainda não está disponível.<br>A Furina do Discord exige perfeição — e essa parte ainda está sendo preparada para o grande espetáculo.</p>
+    <a href="/dashboard" class="button">← Voltar ao palco principal</a>
+  </main>
+
+  <footer>
+    <div>
+      <a href="https://youtube.com/@furinadodiscord?si=tQzMg-l5YefGbawG" target="_blank" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+      <a href="https://www.tiktok.com/@furina.do.discord?_t=ZM-8xJUebYYff3&_r=1" target="_blank" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+      <a href="https://discord.gg/MkneaxC8jY" target="_blank" aria-label="Discord"><i class="fab fa-discord"></i></a>
+    </div>
+    <p>Feito por <strong>ThallesKraft</strong> com amor e drama 💧</p>
+  </footer>
+
+</body>
+</html>

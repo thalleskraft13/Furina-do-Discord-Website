@@ -4,6 +4,7 @@ const passport = require("./auth");
 const mongoose = require("mongoose");
 const MongoStore = require("connect-mongo");
 const Servidor = require("./models/Servidor")
+const UserDb = require("./models/Usuario");
 const path = require("path");
 require("dotenv").config();
 
@@ -333,6 +334,84 @@ app.post('/dashboard/:guildId/logs', async (req, res) => {
     res.redirect(`/dashboard/${guildId}/logs?error=Erro ao salvar configurações`);
   }
 });
+
+
+app.get("/mochila", (req, res) => {
+   res.render("desenvolvimento", { user: req.user})
+})
+
+app.get("/recompensas", async(req, res) => {
+
+ // console.log(req.user)
+
+  let db = await UserDb.findOne({
+    id: req.user.discordId
+  })
+
+  if (!db){
+    let newuser = new UserDb({id: req.user.discordId})
+
+    await newuser.save();
+
+    db = await UserDb.findOne({
+    id: req.user.discordId
+  })
+  }
+
+  
+   res.render("user/daily", { user: req.user, db: db})
+})
+
+app.post("/recompensas", async (req, res) => {
+  try {
+    const userId = req.user.discordId;
+
+    const userDb = await UserDb.findOne({ id: userId });
+
+    if (!userDb) {
+      return res.status(404).json({ erro: "Usuário não encontrado." });
+    }
+
+    if (!userDb.level || userDb.level.ar < 16) {
+      return res.status(403).json({ erro: "Você precisa ser AR 16 ou mais para resgatar." });
+    }
+
+    const agora = Date.now();
+    const ultimoResgate = userDb.daily || 0;
+    const tempoRestante = 86400000 - (agora - ultimoResgate); // 24h - tempo passado
+
+    if (tempoRestante > 0) {
+      return res.status(429).json({
+        erro: "Aguarde para resgatar novamente.",
+        tempoRestante
+      });
+    }
+
+    // Recompensa aleatória entre 60 e 300
+    const recompensa = Math.floor(Math.random() * (300 - 60 + 1)) + 60;
+
+    userDb.primogemas += recompensa;
+    userDb.daily = agora;
+    await userDb.save();
+
+    return res.json({ sucesso: true, recompensa });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ erro: "Erro interno do servidor." });
+  }
+});
+
+app.get("/eventos", (req, res) => {
+   res.render("user/eventos", { user: req.user})
+})
+
+app.get("/loja", (req, res) => {
+   res.render("desenvolvimento", { user: req.user})
+})
+
+app.get("/missoes", (req, res) => {
+   res.render("desenvolvimento", { user: req.user})
+})
 
 app.use((req, res) => {
   res.status(404).render('nPagina'); 
