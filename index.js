@@ -336,6 +336,111 @@ app.post('/dashboard/:guildId/logs', async (req, res) => {
 });
 
 
+
+
+const MsgAutomatica = require('./models/msg'); // modelo mongoose
+
+
+  app.get("/dashboard/:guildId/mensagem-automatica", checkAuth, async (req, res) => {
+  const MsgModel = require("./models/msg.js");
+  const { guildId } = req.params;
+
+  try {
+    const mensagens = await MsgModel.find({ serverId: guildId });
+
+    res.render("servidor/mensagem-automatica", {
+      user: req.user,
+      guild: { id: guildId, name: req.guildName || "Servidor" }, // se quiser passar nome do servidor
+      mensagens,
+      success: req.query.success,
+      error: req.query.error,
+      deleted: req.query.deleted,
+    });
+  } catch (err) {
+    console.error(err);
+    res.render("servidor/mensagem-automatica", {
+      user: req.user,
+      guild: { id: guildId, name: req.guildName || "Servidor" },
+      mensagens: [],
+      error: "Erro ao carregar as mensagens automáticas.",
+    });
+  }
+});
+
+
+
+ 
+app.post("/dashboard/:guildId/mensagem-automatica", async (req, res) => {
+  const MsgModel = require("./models/msg.js");
+  const { guildId } = req.params;
+  const { action } = req.body;
+
+  try {
+    if (action === "create") {
+      const { chaveDeMsg, resposta } = req.body;
+
+      if (!chaveDeMsg || !resposta) {
+        return res.redirect(`/dashboard/${guildId}/mensagem-automatica?error=Todos os campos são obrigatórios`);
+      }
+
+      const existente = await MsgModel.findOne({ serverId: guildId, chaveDeMsg });
+      if (existente) {
+        return res.redirect(`/dashboard/${guildId}/mensagem-automatica?error=Já existe uma mensagem com essa chave`);
+      }
+
+      await MsgModel.create({ serverId: guildId, chaveDeMsg, resposta });
+      return res.redirect(`/dashboard/${guildId}/mensagem-automatica?success=Mensagem criada com sucesso`);
+    }
+
+    if (action === "edit") {
+      const { chaveDeMsg, resposta } = req.body;
+
+      if (!chaveDeMsg || !resposta) {
+        return res.redirect(`/dashboard/${guildId}/mensagem-automatica?error=Campos obrigatórios para edição`);
+      }
+
+      const editada = await MsgModel.findOneAndUpdate(
+        { serverId: guildId, chaveDeMsg },
+        { resposta },
+        { new: true }
+      );
+
+      if (!editada) {
+        return res.redirect(`/dashboard/${guildId}/mensagem-automatica?error=Mensagem não encontrada para edição`);
+      }
+
+      return res.redirect(`/dashboard/${guildId}/mensagem-automatica?success=Mensagem editada com sucesso`);
+    }
+
+    if (action === "delete") {
+      const { chaveDeMsg } = req.body;
+
+      if (!chaveDeMsg) {
+        return res.redirect(`/dashboard/${guildId}/mensagem-automatica?error=Chave da mensagem obrigatória para deletar`);
+      }
+
+      const deletada = await MsgModel.findOneAndDelete({ serverId: guildId, chaveDeMsg });
+
+      if (!deletada) {
+        return res.redirect(`/dashboard/${guildId}/mensagem-automatica?error=Mensagem não encontrada para deletar`);
+      }
+
+      return res.redirect(`/dashboard/${guildId}/mensagem-automatica?deleted=Mensagem deletada com sucesso`);
+    }
+
+    return res.redirect(`/dashboard/${guildId}/mensagem-automatica?error=Ação inválida`);
+  } catch (err) {
+    console.error("Erro ao salvar mensagem automática:", err);
+    return res.redirect(`/dashboard/${guildId}/mensagem-automatica?error=Erro interno do servidor`);
+  }
+});
+
+
+
+    
+    
+
+
 app.get("/mochila", (req, res) => {
    res.render("desenvolvimento", { user: req.user})
 })
@@ -413,9 +518,15 @@ app.get("/missoes", (req, res) => {
    res.render("desenvolvimento", { user: req.user})
 })
 
+app.get("/ping", (req, res) => {
+  res.send("pong");
+});
+
+
 app.use((req, res) => {
   res.status(404).render('nPagina'); 
 });
+
 
 app.listen(process.env.PORT, () => {
   console.log(`🚀 Servidor iniciado em http://localhost:${process.env.PORT}`);

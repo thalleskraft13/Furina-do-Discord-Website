@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Mensagem Automática - Furina do Discord</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Raleway:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <style>
+    /* Reset e base */
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      font-family: 'Raleway', sans-serif;
+      background: radial-gradient(ellipse at top, #0b1c3a 0%, #06152a 100%);
+      color: #cdd6f4;
+      display: flex;
+      min-height: 100vh;
+      flex-direction: column;
+      user-select: none;
+    }
+    a {
+      text-decoration: none;
+      color: inherit;
+      transition: color 0.3s ease;
+    }
+    a:hover {
+      color: #3dd1d9;
+    }
+
+    /* HEADER */
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 1.5rem;
+      background-color: rgba(10, 25, 45, 0.95);
+      border-bottom: 2px solid #0d2e52;
+      position: sticky;
+      top: 0;
+      z-index: 1100;
+      gap: 1rem;
+    }
+    .logo-title {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      white-space: nowrap;
+    }
+    .logo-furina {
+      height: 40px;
+      width: 40px;
+      border-radius: 0.6rem;
+      object-fit: cover;
+      user-select: none;
+      flex-shrink: 0;
+    }
+    header h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      color: #3dd1d9;
+      margin: 0;
+      user-select: none;
+    }
+
+    /* Botão menu mobile */
+    .toggle-sidebar {
+      display: none;
+      background-color: #3dd1d9;
+      color: #08172e;
+      border: none;
+      border-radius: 0.7rem;
+      padding: 0.6rem 1.2rem;
+      font-weight: 700;
+      font-size: 1.2rem;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    /* SIDEBAR */
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 220px;
+      height: 100vh;
+      background-color: rgba(10, 25, 45, 0.95);
+      backdrop-filter: blur(10px);
+      border-right: 2px solid #0d2e52;
+      padding: 2rem 1.2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      z-index: 1000;
+      transition: transform 0.3s ease;
+    }
+    .sidebar a {
+      color: #3dd1d9;
+      font-weight: 600;
+      font-size: 1.05rem;
+      padding: 0.75rem 1rem;
+      border-radius: 0.7rem;
+      transition: 0.3s;
+      user-select: none;
+    }
+    .sidebar a:hover {
+      background-color: #3dd1d9;
+      color: #08172e;
+      box-shadow: inset 0 0 14px #29b8c3;
+    }
+
+    /* CONTEÚDO */
+    main.content {
+      margin-left: 220px;
+      padding: 2rem;
+      flex: 1;
+      max-width: 900px;
+    }
+    h1.page-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.4rem;
+      color: #3dd1d9;
+      margin-bottom: 2rem;
+      user-select: none;
+    }
+
+    /* Mensagens e formulário */
+    .msg-item {
+      background: #08172e;
+      border: 1px solid #3dd1d9;
+      border-radius: 0.7rem;
+      padding: 1rem;
+      margin-bottom: 1.5rem;
+      transition: transform 0.3s ease;
+    }
+    .msg-item:hover {
+      transform: scale(1.01);
+    }
+    .msg-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      user-select: none;
+    }
+    .msg-header h3 {
+      margin: 0;
+      color: #3dd1d9;
+    }
+    .msg-header button {
+      background: #3dd1d9;
+      border: none;
+      border-radius: 0.5rem;
+      color: #08172e;
+      font-weight: bold;
+      padding: 0.3rem 0.8rem;
+      cursor: pointer;
+      user-select: none;
+      transition: background-color 0.3s ease;
+    }
+    .msg-header button:hover {
+      background-color: #29b8c3;
+    }
+    .msg-body {
+      display: none;
+      margin-top: 1rem;
+      animation: fadeIn 0.3s ease-in-out;
+    }
+    .msg-body.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translateY(-5px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+
+    input[type="text"], textarea {
+      width: 100%;
+      background: #0b1c3a;
+      color: #cdd6f4;
+      border: 1px solid #3dd1d9;
+      border-radius: 0.5rem;
+      padding: 0.7rem;
+      resize: vertical;
+      font-family: 'Raleway', sans-serif;
+      font-size: 1rem;
+      margin-bottom: 0.5rem;
+    }
+
+    input[type="text"][readonly] {
+      color: #7aa7ce;
+      background: #06152a;
+      cursor: default;
+    }
+
+    .msg-actions {
+      margin-top: 0.7rem;
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .msg-actions button {
+      padding: 0.5rem 1.2rem;
+      border: none;
+      border-radius: 0.5rem;
+      font-weight: bold;
+      cursor: pointer;
+      user-select: none;
+      flex: 1 1 100px;
+      max-width: 120px;
+      text-align: center;
+      transition: background-color 0.3s ease;
+    }
+    .delete-btn {
+      background: #e74c3c;
+      color: white;
+    }
+    .delete-btn:hover {
+      background: #c0392b;
+    }
+    .save-btn {
+      background: #3dd1d9;
+      color: #08172e;
+    }
+    .save-btn:hover {
+      background: #29b8c3;
+    }
+
+    /* Mensagens de sucesso e erro */
+    .success-msg {
+      background-color: #3dd1d9;
+      color: #08172e;
+      padding: 1rem;
+      border-radius: 0.7rem;
+      margin-bottom: 1.5rem;
+      text-align: center;
+      font-weight: bold;
+      user-select: none;
+    }
+    .error-msg {
+      background-color: #e74c3c;
+      color: white;
+      padding: 1rem;
+      border-radius: 0.7rem;
+      margin-bottom: 1.5rem;
+      text-align: center;
+      font-weight: bold;
+      user-select: none;
+    }
+
+    /* Responsivo */
+    @media (max-width: 768px) {
+      .toggle-sidebar {
+        display: flex;
+      }
+      .sidebar {
+        transform: translateX(-100%);
+        width: 80%;
+        max-width: 250px;
+      }
+      .sidebar.active {
+        transform: translateX(0);
+      }
+      main.content {
+        margin-left: 0;
+        padding: 2rem 1rem;
+      }
+      .msg-actions button {
+        flex: 1 1 45%;
+        max-width: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo-title">
+      <img src="/img/furina.jpg" alt="Logo Furina" class="logo-furina" />
+      <h1>Furina do Discord</h1>
+    </div>
+    <button class="toggle-sidebar" aria-label="Abrir Menu" onclick="toggleSidebar()">☰</button>
+  </header>
+
+  <nav class="sidebar" id="sidebar">
+    <a href="/dashboard"><i class="fa-solid fa-house"></i> Início</a>
+    <a href="/dashboard/<%= guild.id %>"><i class="fa-solid fa-sliders"></i> Painel</a>
+    <a href="/dashboard/<%= guild.id %>/mensagem-automatica"><i class="fa-solid fa-comment-dots"></i> Mensagem Automática</a>
+    <a href="/dashboard/<%= guild.id %>/embed"><i class="fa-solid fa-palette"></i> Embed Personalizado</a>
+    <a href="/dashboard/<%= guild.id %>/logs"><i class="fa-solid fa-scroll"></i> Logs</a>
+  </nav>
+
+  <main class="content">
+    <h1 class="page-title">Mensagens Automáticas - <%= guild.name %></h1>
+
+    <% if (success) { %>
+      <div class="success-msg">✅ <%= success %></div>
+    <% } %>
+    <% if (error) { %>
+      <div class="error-msg">❌ <%= error %></div>
+    <% } %>
+    <% if (deleted) { %>
+      <div class="error-msg">🗑️ <%= deleted %></div>
+    <% } %>
+
+    <div class="msg-item">
+      <h3>➕ Criar Nova Mensagem</h3>
+      <form method="POST" action="/dashboard/<%= guild.id %>/mensagem-automatica">
+        <input type="hidden" name="action" value="create" />
+        <input type="text" name="chaveDeMsg" placeholder="Chave da Mensagem" required />
+        <textarea name="resposta" rows="4" placeholder="Resposta automática" required></textarea>
+        <div class="msg-actions">
+          <button type="submit" class="save-btn">💾 Salvar Mensagem</button>
+        </div>
+      </form>
+    </div>
+
+    <% mensagens.forEach(msg => { %>
+      <div class="msg-item">
+        <div class="msg-header" onclick="toggleBody('<%= msg.chaveDeMsg %>')">
+          <h3>💬 <%= msg.chaveDeMsg %></h3>
+          <button type="button">✏️</button>
+        </div>
+        <div class="msg-body" id="body-<%= msg.chaveDeMsg %>">
+          <form method="POST" action="/dashboard/<%= guild.id %>/mensagem-automatica">
+            <input type="hidden" name="action" value="edit" />
+            <input type="hidden" name="chaveDeMsg" value="<%= msg.chaveDeMsg %>" />
+            <textarea name="resposta" rows="4" required><%= msg.resposta %></textarea>
+            <div class="msg-actions">
+              <button type="submit" class="save-btn">💾 Salvar</button>
+            </div>
+          </form>
+          <form method="POST" action="/dashboard/<%= guild.id %>/mensagem-automatica" onsubmit="return confirmDelete()">
+            <input type="hidden" name="action" value="delete" />
+            <input type="hidden" name="chaveDeMsg" value="<%= msg.chaveDeMsg %>" />
+            <div class="msg-actions">
+              <button type="submit" class="delete-btn">🗑️ Apagar</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    <% }) %>
+  </main>
+
+  <script>
+    function toggleSidebar() {
+      document.getElementById('sidebar').classList.toggle('active');
+    }
+
+    function toggleBody(chave) {
+      const el = document.getElementById('body-' + chave);
+      if (el) {
+        el.classList.toggle('active');
+      }
+    }
+
+    function confirmDelete() {
+      return confirm('Tem certeza que deseja apagar esta mensagem?');
+    }
+  </script>
+</body>
+</html>
