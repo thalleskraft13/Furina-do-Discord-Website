@@ -8,6 +8,8 @@ const personagemSchema = new Schema({
 module.exports = model("Usuários", new Schema({
   id: { type: String, required: true },
   uid: { type: String, default: "0" },
+  notificar: { type: Boolean, default: true },
+  sobremim: { type: String, default: "teste" },
   primogemas: { type: Number, default: 0 },
   mora: { type: Number, default: 0 },
   daily: { type: Number, default: 0 },
@@ -51,6 +53,11 @@ module.exports = model("Usuários", new Schema({
         anemoculus: { type: Number, default: 0 },
       }
     }
+  },
+
+  perfil: {
+    tema: { type: String, default: "0"},
+    sobremim: { type: String, default: "Use '/perfil sobremim' para alterar."}
   }
 
 

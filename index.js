@@ -6,8 +6,8 @@ const MongoStore = require("connect-mongo");
 const Servidor = require("./models/Servidor")
 const UserDb = require("./models/Usuario");
 const path = require("path");
-require("dotenv").config();
-
+require("dotenv").config()
+const fs = require("fs");
 const User = require("./models/User");
 const client = require("./botClient");
 
@@ -517,6 +517,55 @@ app.get("/loja", (req, res) => {
 app.get("/missoes", (req, res) => {
    res.render("desenvolvimento", { user: req.user})
 })
+
+
+
+
+  
+app.get("/perfil", async (req, res) => {
+  const user = req.user;
+  let db = await UserDb.findOne({ id: req.user.discordId });
+  if (!db) {
+    db = await new UserDb({ id: req.user.discordId }).save();
+  }
+
+  const dir = path.join(__dirname, "public/personagem/temas");
+  const arquivos = fs.readdirSync(dir).filter(f => f.endsWith(".png"));
+
+  const temas = [];
+
+  if (arquivos.includes("0.png")) {
+    temas.push({ nome: "0" });
+  }
+
+  const nomesPersonagens = (db.personagens || []).map(p => p.nome);
+
+  arquivos.forEach((file) => {
+    const nome = path.parse(file).name;
+    if (nome !== "0" && nomesPersonagens.includes(nome)) {
+      temas.push({ nome });
+    }
+  });
+
+  res.render("user/perfil", {
+    user,
+    db,
+    temas,
+    temaAtual: db.perfil.tema || "0"
+  });
+});
+
+
+app.post("/perfil/tema", async (req, res) => {
+  const { tema } = req.body;
+  await UserDb.updateOne(
+    { id: req.user.discordId },
+    { "perfil.tema": tema }
+  );
+  res.redirect("/perfil");
+});
+
+
 
 app.get("/ping", (req, res) => {
   res.send("pong");
