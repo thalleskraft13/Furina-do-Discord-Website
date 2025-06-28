@@ -5,9 +5,17 @@
     "imagem": "img/cmd/banner.png"
   },
   {
-    "nome": "/rank-de-aventureiro",
+    "nome": "/rank ver",
     "descrição": "Descubra o brilho do seu Rank de Aventureiro.",
     "imagem": "img/cmd/aventureiro.png"
+  },{
+    "nome": "/rank global",
+    "descrição": "Veja o rank global de aventureiros",
+    "imagem": "img/cmd/rank-global.png"
+  },{
+    "nome": "/rank servidor",
+    "descrição": "Veja o rank dos aventureiros do servidor",
+    "imagem": "img/cmd/rank-servidor.png"
   },
   {
     "nome": "/explorar mondstadt iniciar",
@@ -33,5 +41,65 @@
     "nome": "/cancelar",
     "descrição": "A justiça clama por espetáculo! Julgarei e cancelarei com todo o drama que Fontaine merece!",
     "imagem": "img/cmd/cancelar.png"
+  },{
+    "nome": "/conquistas",
+    "descrição": "Veja suas conquistas gloriosas.",
+    "imagem": "img/cmd/conquistas.png"
+  },{
+    "nome": "/primogemas daily",
+    "descrição": "Receba sua recompensa diária de primogemas pelo site.",
+    "imagem": "img/cmd/primogema-daily.png"
+  },{
+    "nome": "/primogemas ver",
+    "descrição": "Veja quantas primogemas você ou outro aventureiro possui.",
+    "imagem": "img/cmd/primogema-ver.png"
+  },{
+    "nome": "/primogemas pagar",
+    "descrição": "Transfira primogemas para outro aventureiro.",
+    "imagem": "img/cmd/primogema-pagar.png"
+  },{
+    "nome": "/primogemas rank",
+    "descrição": "Veja o ranking de primogemas dos aventureiros.",
+    "imagem": "img/cmd/primogema-rank.png"
+  },{
+    "nome": "/sorteio criar",
+    "descrição": "Criar um novo sorteio",
+    "imagem": "img/cmd/sorteio-criar.png"
+  },{
+    "nome": "/configuração",
+    "descrição": "Toque-me com suas preferências e revele meu verdadeiro esplendor~!",
+    "imagem": "img/cmd/config.png"
+  },{
+    "nome": "/elemental",
+    "descrição": "A justiça será lançada com fúria elemental! Escolha seu alvo — e que os céus decidam o resto!",
+    "imagem": "img/cmd/elemental.png"
+  },{
+    "nome": "/perfil ver",
+    "descrição": "Veja o perfil dramático de alguém!",
+    "imagem": "img/cmd/perfil-ver.png"
+  },{
+    "nome": "/perfil sobremim",
+    "descrição": "Reescreva seu espetáculo pessoal!",
+    "imagem": "img/cmd/perfil-sobremim.png"
+  },{
+    "nome": "/personagem", 
+    "descrição": "Veja informações de um personagem seu",
+    "imagem": "img/cmd/personagem.png"
+  },{
+    "nome": "/furina ping",
+    "descrição": "Ah, quanta ansiedade! Permita-me revelar, com toda a pompa e circunstância, a minha latência atual!",
+     "imagem": "img/cmd/furina-ping.png"
+  },{
+    "nome": "/furina informações",
+    "descrição": "Permita-me revelar os gloriosos detalhes sobre mim!",
+      "imagem": "img/cmd/furina-info.png"
+  },{
+    "nome": "/furina 8ball",
+    "descrição": "Pergunte à Juíza da Fonte e receba uma resposta com toda a pompa que merece.",
+     "imagem": "img/cmd/furina-8ball.png"
+  },{
+    "nome": "/lembrete",
+    "descrição": "Crie um lembrete para ser lembrado mais tarde.",
+    "imagem": "img/cmd/lembrete.png"
   }
 ]
