@@ -5,7 +5,7 @@ const personagemSchema = new Schema({
   c: { type: Number, default: 0 }
 });
 
-module.exports = model("Usuários", new Schema({
+module.exports = model("Usuarios", new Schema({
   id: { type: String, required: true },
   uid: { type: String, default: "0" },
   notificar: { type: Boolean, default: true },
