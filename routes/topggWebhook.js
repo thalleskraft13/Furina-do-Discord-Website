@@ -7,6 +7,12 @@ const { EmbedBuilder } = require("discord.js");
 // Rota do webhook top.gg para votos
 router.post("/topgg/voto", async (req, res) => {
   try {
+    // Verifica o token do cabeçalho Authorization
+    const tokenRecebido = req.headers.authorization;
+    if (tokenRecebido !== process.env.topgg) {
+      return res.status(403).send("Token inválido.");
+    }
+
     const userId = req.body.user;
 
     if (!userId) return res.status(400).send("User ID is required.");
@@ -14,7 +20,7 @@ router.post("/topgg/voto", async (req, res) => {
     let userDb = await Usuarios.findOne({ id: userId });
 
     if (!userDb) {
-      userDb = new Usuarios({ id: userId });
+      userDb = new Usuarios({ id: userId, primogemas: 0 });
     }
 
     // Adiciona 10x 160 primogemas (1600)
@@ -31,9 +37,9 @@ router.post("/topgg/voto", async (req, res) => {
       .setTitle("✨ Obrigada pelo voto! ✨")
       .setDescription(
         "Querido viajante, sua bondade ilumina nossos caminhos! 🌊\n" +
-          "Por sua gentileza, aqui estão **1600 Primogemas** para fortalecer sua jornada.\n" +
-          "Que a maré da sorte esteja sempre a seu favor, e que nunca lhe falte a inspiração para conquistar novas aventuras.\n" +
-          "Fique comigo, e juntos dominaremos as correntes do destino."
+        "Por sua gentileza, aqui estão **1600 Primogemas** para fortalecer sua jornada.\n" +
+        "Que a maré da sorte esteja sempre a seu favor, e que nunca lhe falte a inspiração para conquistar novas aventuras.\n" +
+        "Fique comigo, e juntos dominaremos as correntes do destino."
       )
       .setFooter({ text: "Furina te agradece com todo seu coração 💙" });
 
@@ -43,17 +49,15 @@ router.post("/topgg/voto", async (req, res) => {
       .setTitle("📢 Novo voto recebido!")
       .setDescription(
         `O navegante [**${user ? user.username : "Usuário desconhecido"}**](https://discord.com/users/${userId}) acaba de lançar sua bênção sobre nós!\n` +
-          "Seu voto é como uma brisa fresca que traz energias poderosas para nossas águas.\n" +
-          "Que as ondas da fortuna te levem longe, bravo viajante!"
+        "Seu voto é como uma brisa fresca que traz energias poderosas para nossas águas.\n" +
+        "Que as ondas da fortuna te levem longe, bravo viajante!"
       );
 
     // Enviar DM ao usuário se possível
     if (user) {
-      user
-        .send({ embeds: [embedDM] })
-        .catch(() => {
-          console.log(`Não foi possível enviar DM para o usuário ${userId}.`);
-        });
+      user.send({ embeds: [embedDM] }).catch(() => {
+        console.log(`Não foi possível enviar DM para o usuário ${userId}.`);
+      });
     }
 
     // Enviar embed no canal público (log)
