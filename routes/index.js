@@ -1,9 +1,9 @@
 const express = require("express");
 const router = express.Router();
-
+const client = require("../botClient")
 // Página inicial
 router.get("/", (req, res) => {
-  res.render("index", { user: req.user });
+  res.render("index", { user: req.user, client });
 });
 
 // Página de comandos

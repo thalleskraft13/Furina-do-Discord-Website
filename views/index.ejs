@@ -8,19 +8,13 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
+    * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
       font-family: 'Raleway', sans-serif;
       background: radial-gradient(ellipse at top, #0b1c3a 0%, #08172e 70%, #06152a 100%);
       color: white;
       overflow-x: hidden;
     }
-
     header {
       background-color: rgba(6, 21, 42, 0.9);
       display: flex;
@@ -32,7 +26,6 @@
       top: 0;
       z-index: 1000;
     }
-
     .logo {
       display: flex;
       align-items: center;
@@ -41,7 +34,6 @@
       font-weight: bold;
       font-family: 'Playfair Display', serif;
     }
-
     .logo img {
       width: 40px;
       height: 40px;
@@ -49,23 +41,17 @@
       margin-right: 10px;
       border: 2px solid #3DD1D9;
     }
-
     .nav-links {
       display: flex;
       gap: 2rem;
     }
-
     .nav-links a {
       text-decoration: none;
       color: #3DD1D9;
       font-weight: 600;
       transition: color 0.3s;
     }
-
-    .nav-links a:hover {
-      color: #ffffff;
-    }
-
+    .nav-links a:hover { color: #ffffff; }
     .menu-toggle {
       display: none;
       font-size: 1.5rem;
@@ -74,7 +60,6 @@
       color: white;
       cursor: pointer;
     }
-
     .mobile-menu {
       display: none;
       flex-direction: column;
@@ -84,22 +69,21 @@
       left: 0;
       width: 100%;
       padding: 1rem 2rem;
+      z-index: 9999;
     }
-
     .mobile-menu a {
       padding: 0.5rem 0;
       color: #3DD1D9;
       text-decoration: none;
       font-weight: 600;
     }
+    .mobile-menu.show { display: flex; }
 
     .hero {
       text-align: center;
       padding: 4rem 2rem;
       background: rgba(255, 255, 255, 0.03);
-      animation: fadeIn 1s ease-in-out;
     }
-
     .hero img {
       width: 90px;
       height: 90px;
@@ -107,28 +91,24 @@
       border: 3px solid #3DD1D9;
       margin-bottom: 1rem;
     }
-
     .hero h1 {
       font-family: 'Playfair Display', serif;
       font-size: 3rem;
       color: #3DD1D9;
       margin-bottom: 1rem;
     }
-
     .hero p {
       font-size: 1.2rem;
       color: #DDEEFF;
       max-width: 700px;
       margin: 0 auto 2rem;
     }
-
     .buttons {
       display: flex;
       justify-content: center;
       gap: 1rem;
       flex-wrap: wrap;
     }
-
     .buttons a {
       padding: 0.75rem 2rem;
       background: #3DD1D9;
@@ -139,44 +119,130 @@
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
       transition: transform 0.3s, background 0.3s;
     }
-
     .buttons a:hover {
       background: #29b8c3;
       transform: scale(1.05);
     }
 
-    .features {
+    /* Aliados */
+    .aliados {
+      max-width: 900px;
+      margin: 3rem auto 4rem;
+      padding: 2rem 2rem;
+      border: 2px solid #3DD1D9;
+      border-radius: 1rem;
+      box-shadow: 0 0 12px rgba(61, 209, 217, 0.3);
+      background: rgba(255,255,255,0.03);
+      text-align: center;
+    }
+    .aliados h2 {
+      color: #3DD1D9;
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      font-size: 2.5rem;
+      margin-bottom: 2rem;
+    }
+    .aliado-box {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+      border-bottom: 1px solid #3DD1D9;
+      padding-bottom: 1.5rem;
+    }
+    .aliado-box:last-child {
+      margin-bottom: 0;
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+    .aliado-box img {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      border: 2px solid #3DD1D9;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+    .aliado-info {
+      flex: 1;
+      text-align: left;
+      color: #d0e8ff;
+    }
+    .aliado-info h3 {
+      margin-bottom: 0.3rem;
+      color: #3DD1D9;
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
+    .aliado-info p {
+      font-size: 1rem;
+      margin-bottom: 0.4rem;
+    }
+    .aliado-info a.button-link {
+      display: inline-block;
+      margin-top: 0.5rem;
+      padding: 0.5rem 1.5rem;
+      background: #3DD1D9;
+      color: #081d35;
+      border-radius: 1rem;
+      font-weight: 600;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+      text-decoration: none;
+      transition: background 0.3s, transform 0.3s;
+    }
+    .aliado-info a.button-link:hover {
+      background: #29b8c3;
+      transform: scale(1.05);
+    }
+
+    /* Funcionalidades */
+    .funcionalidades {
+      max-width: 900px;
+      margin: 0 auto 5rem;
       display: flex;
       flex-wrap: wrap;
-      justify-content: center;
       gap: 2rem;
-      padding: 4rem 2rem;
+      justify-content: center;
     }
-
-    .feature-box {
-      background: rgba(6, 21, 42, 0.8);
-      padding: 2rem;
+    .funcao-box {
+      background: rgba(255,255,255,0.03);
+      border: 2px solid #3DD1D9;
       border-radius: 1rem;
-      max-width: 300px;
-      text-align: center;
-      color: #DDEEFF;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
-      transition: transform 0.3s;
+      box-shadow: 0 0 12px rgba(61, 209, 217, 0.3);
+      padding: 1.8rem 2rem;
+      flex: 1 1 280px;
+      color: #d0e8ff;
+      font-size: 1rem;
+      line-height: 1.4;
+      min-width: 280px;
+      max-width: 320px;
     }
-
-    .feature-box:hover {
-      transform: translateY(-5px);
-    }
-
-    .feature-box h3 {
+    .funcao-box h3 {
       color: #3DD1D9;
-      margin-bottom: 1rem;
-      font-size: 1.5rem;
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      font-size: 1.4rem;
+      margin-bottom: 0.7rem;
     }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
+    .funcao-box p {
+      margin-bottom: 0.5rem;
+    }
+    .funcao-box code {
+      background: rgba(61, 209, 217, 0.15);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: monospace;
+      font-weight: 600;
+      color: #3DD1D9;
+    }
+    .totais-gerais {
+      width: 100%;
+      text-align: center;
+      font-weight: 700;
+      color: #3DD1D9;
+      font-size: 1.3rem;
+      margin-bottom: 2rem;
+      font-family: 'Playfair Display', serif;
     }
 
     footer {
@@ -185,7 +251,6 @@
       text-align: center;
       border-top: 2px solid #3DD1D9;
     }
-
     footer a {
       margin: 0 1rem;
       text-decoration: none;
@@ -193,33 +258,43 @@
       font-size: 1.8rem;
       transition: transform 0.2s;
     }
-
-    footer a:hover {
-      color: #ffffff;
-      transform: scale(1.2);
+    footer a:hover { 
+      color: #ffffff; 
+      transform: scale(1.2); 
+    }
+    footer p { 
+      color: #A0CFE8; 
+      font-size: 0.9rem; 
+      margin-top: 1rem; 
     }
 
-    footer p {
-      color: #A0CFE8;
-      font-size: 0.9rem;
-      margin-top: 1rem;
-    }
-
+    /* Responsividade */
     @media (max-width: 768px) {
-      .nav-links {
-        display: none;
+      .nav-links { display: none; }
+      .menu-toggle { display: block; }
+
+      .funcionalidades {
+        flex-direction: column;
+        gap: 1.5rem;
+        margin: 0 1rem 4rem;
       }
 
-      .menu-toggle {
-        display: block;
+      .funcao-box {
+        max-width: 100%;
       }
 
-      .mobile-menu.show {
-        display: flex;
+      .aliados {
+        margin: 2rem 1rem 3rem;
+        padding: 1.5rem 1.5rem;
       }
 
-      .hero h1 {
-        font-size: 2.2rem;
+      .aliado-box {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+      .aliado-info {
+        text-align: center;
       }
     }
   </style>
@@ -228,50 +303,96 @@
 
   <header>
     <div class="logo">
-      <img src="img/furina.jpg" alt="Furina Bot">
+      <img src="/img/furina.jpg" alt="Furina Bot">
       Furina do Discord
     </div>
     <nav class="nav-links">
       <a href="/">Início</a>
-    <a href="/termos">Termos de Serviço</a>
-    <a href="/privacidade">Política de Privacidade</a>
-    <a href="/comandos">Lista de Comandos</a>
-    <a href="https://discord.gg/https://discord.gg/MkneaxC8jY" target="_blank">Servidor Oficial</a>
+      <a href="/termos">Termos</a>
+      <a href="/privacidade">Privacidade</a>
+      <a href="/comandos">Comandos</a>
+      <a href="https://discord.gg/MkneaxC8jY" target="_blank">Suporte</a>
     </nav>
     <button class="menu-toggle" onclick="toggleMenu()">☰</button>
   </header>
 
   <div class="mobile-menu" id="mobileMenu">
     <a href="/">Início</a>
-    <a href="/termos">Termos de Serviço</a>
-    <a href="/privacidade">Política de Privacidade</a>
-    <a href="/comandos">Lista de Comandos</a>
-    <a href="https://discord.gg/https://discord.gg/MkneaxC8jY" target="_blank">Servidor Oficial</a>
+    <a href="/termos">Termos</a>
+    <a href="/privacidade">Privacidade</a>
+    <a href="/comandos">Comandos</a>
+    <a href="https://discord.gg/MkneaxC8jY" target="_blank">Suporte</a>
   </div>
 
   <section class="hero">
-    <img src="img/furina.jpg" alt="Furina Bot">
+    <img src="/img/furina.jpg" alt="Furina Bot">
     <h1>Furina do Discord</h1>
-    <p>"Moi, Furina, a Estrela de Fontaine, chego para transformar este servidor num espetáculo! Com classe, drama e utilidade, sou muito mais do que um simples bot."</p>
+    <p>Moi, Furina, a Estrela de Fontaine, chego para transformar este servidor num espetáculo! Com classe, drama e utilidade, sou muito mais do que um simples bot.</p>
     <div class="buttons">
-      <a href="https://discord.com/oauth2/authorize?client_id=1314904179680219136&permissions=8&response_type=code&redirect_uri=https%3A%2F%2Ffurina-do-discord.onrender.com%2Fauth%2Fdiscord%2Fcallback&integration_type=0&scope=bot+identify+applications.commands">Adicionar</a>
-      <a href="https://discord.gg/MkneaxC8jY">Suporte</a>
-      <a href="/dashboard">Gerenciar</a>
+      <a href="https://discord.com/oauth2/authorize?client_id=1314904179680219136&permissions=8&scope=bot+applications.commands&redirect_uri=https://furina-do-discord.onrender.com/auth/discord/callback">Adicionar</a>
+      <a href="https://discord.gg/MkneaxC8jY" target="_blank">Suporte</a>
+      <a href="/dashboard">Painel</a>
     </div>
   </section>
 
-  <section class="features">
-    <div class="feature-box">
-      <h3>Genshin Impact</h3>
-      <p>Comandos temáticos, personagens, citações e tudo que um verdadeiro viajante espera de Teyvat.</p>
+  <section class="aliados" aria-label="Servidores aliados">
+    <h2>︶𝆹𝅥⏝ Alidados</h2>
+
+    <% 
+      const aliadoGuild = client.guilds.cache.get('1372911248936796231');
+      const aliadoAvatar = aliadoGuild ? aliadoGuild.iconURL({ format: 'png', size: 128 }) : '/img/default-server.png';
+      const aliadoName = aliadoGuild ? aliadoGuild.name : 'Servidor Aliado';
+      const aliadoMembers = aliadoGuild ? aliadoGuild.memberCount : 'N/A';
+    %>
+
+    <div class="aliado-box">
+      <img src="<%= aliadoAvatar %>" alt="<%= aliadoName %>">
+      <div class="aliado-info">
+        <h3><%= aliadoName %></h3>
+        <p>Servidor bem organizado com recursos para design e equipe staff ativa.</p>
+        <p>Comunidade acolhedora, tutoriais, sorteios, enquetes e mais.</p>
+        <p><strong>Ganha 100 primogemas a cada mensagem enviada!</strong></p>
+        <p><strong>Total de membros:</strong> <%= aliadoMembers %></p>
+        <a href="https://discord.gg/Tvb5kByFmH" target="_blank" class="button-link">Entrar no Servidor</a>
+      </div>
     </div>
-    <div class="feature-box">
-      <h3>Diversão</h3>
-      <p>Frases, minigames e reações dramáticas, como só Furina saberia entregar.</p>
+
+    <div class="aliado-box">
+      <img src="/img/furina.jpg" alt="Servidor Suporte Furina">
+      <div class="aliado-info">
+        <h3>Servidor Oficial de Suporte</h3>
+        <p>Receba ajuda, novidades e participe da comunidade oficial da Furina.</p>
+        <a href="https://discord.gg/MkneaxC8jY" target="_blank" class="button-link">Entrar no Suporte</a>
+      </div>
     </div>
-    <div class="feature-box">
-      <h3>Administração</h3>
-      <p>Moderação com estilo, logs elegantes e comandos úteis — com sotaque de Fontaine!</p>
+
+  </section>
+
+  <section class="funcionalidades" aria-label="Funcionalidades do bot">
+    <div class="totais-gerais">
+      🌟 Ativo em <strong><%= client.guilds.cache.size %></strong> servidores! 
+    </div>
+
+    <div class="funcao-box">
+      <h3>✨ Domínio da Sorte e Destino</h3>
+      <p>Furina guia sua sorte com graça e mistério.</p>
+    </div>
+
+    <div class="funcao-box">
+      <h3>🎴 Banners Limitados & Pity</h3>
+      <p>Pity 50/50 garante destaque ou companheiro fiel.</p>
+      <p>Usuários premium têm pity estendido para 60.</p>
+    </div>
+
+    <div class="funcao-box">
+      <h3>💎 Ganhe Primogemas</h3>
+      <p>Envie mensagens e use comandos para subir no ranking.</p>
+      <p>Use <code>/rank ver</code> para monitorar seu progresso.</p>
+    </div>
+
+    <div class="funcao-box">
+      <h3>🌍 Exploração</h3>
+      <p>Explore Mondstadt, Liyue e Inazuma com o comando <code>/explorar [região] iniciar</code>.</p>
     </div>
   </section>
 

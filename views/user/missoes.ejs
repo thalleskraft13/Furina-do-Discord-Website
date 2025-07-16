@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Missões - A Furina do Discord</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Raleway:wght@400;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    body {
+      background: radial-gradient(ellipse at top, #0b1c3a 0%, #08172e 70%, #06152a 100%);
+      font-family: 'Raleway', sans-serif;
+      color: white;
+      margin: 0;
+      padding: 0;
+    }
+    h1 {
+      font-family: 'Playfair Display', serif;
+      color: #3DD1D9;
+      text-align: center;
+      margin-top: 2rem;
+    }
+    .missao {
+      max-width: 600px;
+      margin: 2rem auto;
+      background-color: rgba(255, 255, 255, 0.03);
+      border: 2px solid #3DD1D9;
+      border-radius: 1rem;
+      padding: 2rem;
+    }
+    .missao h2 {
+      color: #ffffff;
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+    .missao p {
+      color: #d2e9ff;
+      margin: 0.4rem 0;
+    }
+    .btn-ativar {
+      margin-top: 1rem;
+      background-color: #3DD1D9;
+      color: #06152a;
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .btn-ativar:hover:not(:disabled) {
+      background-color: #28bac2;
+    }
+    .btn-ativar:disabled {
+      cursor: not-allowed;
+      opacity: 0.6;
+    }
+    .ativa-tag {
+      display: inline-block;
+      background-color: #3DD1D9;
+      color: #06152a;
+      padding: 0.4rem 1rem;
+      border-radius: 20px;
+      font-weight: bold;
+      margin-top: 1rem;
+    }
+    .mensagem {
+      text-align: center;
+      margin-top: 1rem;
+      font-weight: bold;
+      color: #ff8888;
+    }
+    .sucesso {
+      color: #3DD1D9;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Missões da Guilda</h1>
+
+  <% if (erro) { %>
+    <p class="mensagem"><%= erro %></p>
+  <% } else { %>
+
+    <%
+      const algumaAtiva = missoes.some(m => m.ativa);
+    %>
+
+    <% missoes.forEach(missao => { %>
+      <div class="missao" id="missao-<%= missao.tipo %>">
+        <h2><%= missao.titulo || "Sem título" %></h2>
+        <p><%= missao.descricao || "Sem descrição disponível." %></p>
+        <p><strong>Progresso:</strong> <%= missao.progresso || 0 %> / <%= missao.objetivo || 0 %></p>
+        <p><strong>Recompensas:</strong> 
+          <%= (missao.recompensa?.primogemas) || 0 %> 💎, 
+          <%= (missao.recompensa?.mora) || 0 %> Mora, 
+          <%= (missao.recompensa?.xp) || 0 %> XP
+        </p>
+        <p><strong>Expira em:</strong> <%= new Date(missao.expira).toLocaleString() %></p>
+
+        <% if (missao.ativa) { %>
+          <span class="ativa-tag">Missão Ativa</span>
+        <% } else { %>
+          <button class="btn-ativar"
+            onclick="ativarMissao('<%= missao.tipo %>')"
+            <%= algumaAtiva ? 'disabled' : '' %>>
+            Ativar Missão
+          </button>
+        <% } %>
+      </div>
+    <% }); %>
+
+  <% } %>
+
+  <script>
+    function ativarMissao(tipo) {
+      if (!confirm(`Deseja ativar a missão "${tipo}"?`)) return;
+
+      fetch("/missoes/ativar", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ tipo })
+      })
+      .then(res => {
+        if (res.redirected) {
+          window.location.href = res.url;
+          return;
+        }
+        return res.json();
+      })
+      .then(data => {
+        if (data?.sucesso) {
+          location.reload();
+        } else if (data?.erro) {
+          alert(`Erro: ${data.erro}`);
+        }
+      })
+      .catch(() => {
+        alert("Erro ao enviar solicitação.");
+      });
+    }
+  </script>
+</body>
+</html>

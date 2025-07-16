@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Guilda - Furina do Discord</title>
+
+  <!-- Fonts e ícones -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Raleway:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <style>
+    /* Reset básico */
+    * {
+      margin: 0; padding: 0; box-sizing: border-box;
+    }
+
+    /* Fonte e background geral */
+    body {
+      font-family: 'Raleway', sans-serif;
+      background: radial-gradient(ellipse at top, #0b1c3a 0%, #08172e 70%, #06152a 100%);
+      color: white;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* HEADER FIXO */
+    header {
+      background-color: rgba(6, 21, 42, 0.9);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      font-size: 1.5rem;
+      color: #3DD1D9;
+    }
+    .logo img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      margin-right: 10px;
+      border: 2px solid #3DD1D9;
+      object-fit: cover;
+    }
+
+    /* BOTÃO MENU MOBILE */
+    .menu-btn {
+      background: none;
+      border: none;
+      color: #3DD1D9;
+      font-size: 2rem;
+      cursor: pointer;
+      display: none; /* aparece só no mobile */
+      user-select: none;
+    }
+
+    /* SIDEBAR FIXO - Desktop */
+    nav.sidebar {
+      position: fixed;
+      top: 70px; /* altura do header */
+      left: 0;
+      height: calc(100vh - 70px);
+      width: 220px;
+      background-color: #06152a;
+      padding: 2rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+      border-right: 2px solid #3DD1D9;
+      z-index: 900;
+      transition: transform 0.3s ease;
+    }
+    nav.sidebar a {
+      color: #3DD1D9;
+      font-weight: 600;
+      font-size: 1.1rem;
+      text-decoration: none;
+      user-select: none;
+      white-space: nowrap;
+      transition: color 0.3s ease;
+    }
+    nav.sidebar a:hover {
+      color: white;
+    }
+
+    /* CONTENT - margem para não ficar por baixo da sidebar */
+    main.content {
+      margin-left: 240px;
+      padding: 90px 2rem 3rem 2rem; /* top padding pra descer do header */
+      max-width: 900px;
+      margin-right: auto;
+      min-height: calc(100vh - 70px);
+    }
+
+    /* TITULOS */
+    h1, h2 {
+      font-family: 'Playfair Display', serif;
+      color: #3DD1D9;
+      margin-bottom: 1rem;
+    }
+    h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      text-align: center;
+    }
+    h2 {
+      font-size: 1.8rem;
+      border-bottom: 2px solid #3DD1D9;
+      padding-bottom: 0.3rem;
+      font-weight: 700;
+    }
+
+    /* BOXES */
+    .box {
+      background-color: rgba(255, 255, 255, 0.03);
+      border: 2px solid #3DD1D9;
+      border-radius: 1rem;
+      padding: 1.5rem 2rem;
+      margin-bottom: 2.5rem;
+      animation: fadeIn 0.8s ease forwards;
+      word-wrap: break-word;
+    }
+
+    /* Fade in anim */
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translateY(10px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+
+    /* TABELAS */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 0.5rem;
+    }
+    th, td {
+      padding: 0.7rem 1rem;
+      text-align: left;
+      border-bottom: 1px solid rgba(61,209,217,0.3);
+      vertical-align: middle;
+      word-break: break-word;
+    }
+    th {
+      color: #3DD1D9;
+      font-weight: 700;
+    }
+
+    /* BOTOES */
+    .btn-furina {
+      background-color: #3DD1D9;
+      color: #06152a;
+      font-weight: 700;
+      padding: 0.8rem 1.5rem;
+      border-radius: 10px;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      text-decoration: none;
+      display: inline-block;
+      margin-top: 1rem;
+      user-select: none;
+    }
+    .btn-furina:hover {
+      background-color: #2aa6a9;
+      color: white;
+    }
+    .btn-danger {
+      background-color: #ff5555;
+      color: white;
+      font-weight: 700;
+      padding: 0.6rem 1.2rem;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      margin-top: 1rem;
+      user-select: none;
+    }
+    .btn-danger:hover {
+      background-color: #cc4444;
+    }
+
+    /* FORMULARIOS */
+    label {
+      display: block;
+      margin-top: 1rem;
+      font-weight: 700;
+      color: #3DD1D9;
+    }
+    input[type="text"], textarea {
+      width: 100%;
+      padding: 0.6rem;
+      margin-top: 0.3rem;
+      border-radius: 8px;
+      border: 2px solid #3DD1D9;
+      background-color: #06152a;
+      color: white;
+      font-size: 1rem;
+      font-family: 'Raleway', sans-serif;
+      resize: vertical;
+      user-select: text;
+    }
+    textarea {
+      min-height: 100px;
+    }
+
+    /* mensagens de status */
+    #msgStatus, #msgSair, #msgDeletar {
+      margin-top: 1rem;
+      font-weight: 700;
+      min-height: 1.7rem;
+      user-select: none;
+    }
+
+    /* membros box layout */
+    .membros-lista {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      margin-top: 0.8rem;
+    }
+    .membro-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(61, 209, 217, 0.15);
+      padding: 8px 12px;
+      border-radius: 10px;
+      font-weight: 600;
+      color: #06152a;
+      background-clip: padding-box;
+      user-select: none;
+      max-width: 220px;
+    }
+    .membro-item img {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: 2px solid #3DD1D9;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+
+    /* responsividade */
+    @media (max-width: 768px) {
+      .menu-btn {
+        display: block;
+      }
+
+      nav.sidebar {
+        position: fixed;
+        top: 70px;
+        left: 0;
+        height: calc(100vh - 70px);
+        width: 220px;
+        background-color: #06152a;
+        padding: 2rem 1.5rem;
+        transform: translateX(-100%);
+        z-index: 1100;
+      }
+      nav.sidebar.active {
+        transform: translateX(0);
+      }
+
+      main.content {
+        margin-left: 0;
+        padding: 90px 1.5rem 3rem 1.5rem;
+        max-width: 100%;
+      }
+
+      /* overlay para escurecer o fundo quando o sidebar estiver aberto */
+      #overlay {
+        display: none;
+        position: fixed;
+        top: 70px;
+        left: 0;
+        width: 100vw;
+        height: calc(100vh - 70px);
+        background: rgba(0,0,0,0.5);
+        z-index: 1000;
+      }
+      #overlay.active {
+        display: block;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo" tabindex="0">
+      <img src="/img/furina.jpg" alt="Furina Bot" />
+      Furina do Discord
+    </div>
+    <button aria-label="Abrir menu lateral" id="menuToggle" class="menu-btn">
+      <i class="fas fa-bars"></i>
+    </button>
+  </header>
+
+  <!-- SIDEBAR -->
+  <nav class="sidebar" id="sidebar" aria-label="Menu lateral principal">
+    <a href="/dashboard" tabindex="0">Início</a>
+    <a href="/mochila" tabindex="0">Mochila</a>
+    <a href="/recompensas" tabindex="0">Recompensas Diárias</a>
+    <a href="/perfil" tabindex="0">Meu Perfil</a>
+    <a href="/eventos" tabindex="0">Eventos</a>
+    <a href="/loja" tabindex="0">Loja</a>
+    <a href="/missoes" tabindex="0">Missões</a>
+    <a href="https://discord.gg/MkneaxC8jY" target="_blank" rel="noopener noreferrer" tabindex="0">Servidor Oficial</a>
+  </nav>
+
+  <div id="overlay"></div>
+
+  <!-- CONTEÚDO PRINCIPAL -->
+  <main class="content" tabindex="-1">
+    <% if (!estaNaGuilda) { %>
+      <h1>Crie sua Guilda</h1>
+      <div class="box" style="max-width: 600px; margin: 0 auto;">
+        <form id="formCriarGuilda" novalidate>
+          <label for="nome">Nome da Guilda</label>
+          <input type="text" id="nome" name="nome" required minlength="3" maxlength="30" placeholder="Digite o nome da sua guilda" />
+          <label for="descricao">Descrição</label>
+          <textarea id="descricao" name="descricao" maxlength="200" placeholder="Descreva sua guilda em poucas palavras"></textarea>
+          <button type="submit" class="btn-furina">Criar Guilda</button>
+        </form>
+        <div id="msgStatus" role="alert" aria-live="polite"></div>
+      </div>
+    <% } else { %>
+
+      <h1>Guilda: <%= guilda.nome %> <small style="font-weight:400; color:#6fc2c8;">[<%= guilda.tag %>]</small></h1>
+
+      <!-- Status da guilda -->
+      <section class="box" aria-label="Status da guilda">
+        <h2>Status</h2>
+        <p><strong>Dono:</strong> <%= membrosInfo[guilda.dono] ? membrosInfo[guilda.dono].username : "Desconhecido" %></p>
+        <p><strong>Nível:</strong> <%= guilda.nivel %></p>
+        <p><strong>XP:</strong> <%= guilda.xp %></p>
+        <p><strong>Primogemas:</strong> <%= guilda.primogemas %></p>
+        <p><strong>Mora:</strong> <%= guilda.mora %></p>
+      </section>
+
+      <!-- Membros -->
+      <section class="box" aria-label="Membros da guilda">
+        <h2>Membros (<%= guilda.membros.length %> / 4)</h2>
+        <div class="membros-lista" role="list" aria-live="polite" aria-relevant="additions removals">
+          <% guilda.membros.forEach(membro => { 
+            const info = membrosInfo[membro.id];
+          %>
+            <div class="membro-item" role="listitem" tabindex="0" title="Cargo: <%= membro.cargo %> - Entrou em: <%= new Date(membro.entrouEm).toLocaleDateString('pt-BR') %>">
+              <img src="<%= info ? info.avatar : 'https://cdn.discordapp.com/embed/avatars/0.png' %>" alt="Avatar de <%= info ? info.username : 'Desconhecido' %>" />
+              <span><%= info ? info.username : 'Desconhecido' %></span>
+            </div>
+          <% }) %>
+        </div>
+      </section>
+
+      <!-- Missões -->
+      <section class="box" aria-label="Missões da guilda">
+        <h2>Missões</h2>
+        <% if (guilda.missoes && guilda.missoes.length > 0) { %>
+          <ul>
+            <% guilda.missoes.forEach((missao, index) => { %>
+              <li tabindex="0" style="margin-bottom: 0.8rem;">
+                <strong><%= missao.tipo || `Missão ${index + 1}` %>:</strong>  
+                <% if (missao.progresso != null) { %>
+                  <br /><small>Progresso: <%= missao.progresso %>%</small>
+                <% } %>
+              </li>
+            <% }) %>
+          </ul>
+        <% } else { %>
+          <p tabindex="0">Nenhuma missão cadastrada. Use o menu <a href="/missoes" class="btn-furina" style="padding: 0.4rem 0.8rem; font-size: 0.9rem;">Missões</a> para adicionar.</p>
+        <% } %>
+      </section>
+
+      <!-- Ações -->
+      <section class="box" aria-label="Ações da guilda" style="display:flex; flex-wrap: wrap; gap: 1rem;">
+        <% if (isLider) { %>
+          <form id="formDeletar" style="flex:1; min-width: 200px;">
+            <button type="submit" class="btn-danger">Apagar Guilda</button>
+            <div id="msgDeletar" role="alert" aria-live="polite"></div>
+          </form>
+        <% } else { %>
+          <form id="formSair" style="flex:1; min-width: 200px;">
+            <button type="submit" class="btn-danger">Sair da Guilda</button>
+            <div id="msgSair" role="alert" aria-live="polite"></div>
+          </form>
+        <% } %>
+      </section>
+
+    <% } %>
+
+  </main>
+
+  <script>
+    // Toggle do menu lateral no mobile
+    const menuBtn = document.getElementById('menuToggle');
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('overlay');
+
+    function closeSidebar() {
+      sidebar.classList.remove('active');
+      overlay.classList.remove('active');
+      menuBtn.setAttribute('aria-expanded', 'false');
+    }
+    function openSidebar() {
+      sidebar.classList.add('active');
+      overlay.classList.add('active');
+      menuBtn.setAttribute('aria-expanded', 'true');
+    }
+
+    menuBtn.addEventListener('click', () => {
+      if (sidebar.classList.contains('active')) {
+        closeSidebar();
+      } else {
+        openSidebar();
+      }
+    });
+
+    overlay.addEventListener('click', closeSidebar);
+
+    // FECHAR SIDEBAR AO REDIMENSIONAR PARA DESKTOP
+    window.addEventListener('resize', () => {
+      if(window.innerWidth > 768) {
+        sidebar.classList.remove('active');
+        overlay.classList.remove('active');
+        menuBtn.setAttribute('aria-expanded', 'false');
+      }
+    });
+
+    // Formulário Criar Guilda AJAX
+    const formCriarGuilda = document.getElementById('formCriarGuilda');
+    if(formCriarGuilda) {
+      formCriarGuilda.addEventListener('submit', async e => {
+        e.preventDefault();
+        const nome = formCriarGuilda.nome.value.trim();
+        const descricao = formCriarGuilda.descricao.value.trim();
+
+        const msgStatus = document.getElementById('msgStatus');
+        msgStatus.textContent = '';
+        if(nome.length < 3 || nome.length > 30) {
+          msgStatus.textContent = 'O nome deve ter entre 3 e 30 caracteres.';
+          msgStatus.style.color = '#ff5555';
+          return;
+        }
+
+        try {
+          const res = await fetch('/guilda/criar', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({ nome, descricao })
+          });
+          const data = await res.json();
+          if(data.sucesso) {
+            msgStatus.textContent = 'Guilda criada com sucesso! Atualizando...';
+            msgStatus.style.color = '#3DD1D9';
+            setTimeout(() => location.reload(), 1500);
+          } else {
+            msgStatus.textContent = data.erro || 'Erro ao criar guilda.';
+            msgStatus.style.color = '#ff5555';
+          }
+        } catch (err) {
+          msgStatus.textContent = 'Erro ao comunicar com o servidor.';
+          msgStatus.style.color = '#ff5555';
+        }
+      });
+    }
+
+    // Form Sair da guilda
+    const formSair = document.getElementById('formSair');
+    if(formSair) {
+      formSair.addEventListener('submit', async e => {
+        e.preventDefault();
+        const msgSair = document.getElementById('msgSair');
+        msgSair.textContent = '';
+
+        try {
+          const res = await fetch('/guilda/sair', { method: 'POST' });
+          const data = await res.json();
+          if(data.sucesso) {
+            msgSair.style.color = '#3DD1D9';
+            msgSair.textContent = data.mensagem || 'Saiu da guilda com sucesso! Atualizando...';
+            setTimeout(() => location.reload(), 1500);
+          } else {
+            msgSair.style.color = '#ff5555';
+            msgSair.textContent = data.erro || 'Erro ao sair da guilda.';
+          }
+        } catch {
+          msgSair.style.color = '#ff5555';
+          msgSair.textContent = 'Erro ao comunicar com o servidor.';
+        }
+      });
+    }
+
+    // Form Deletar guilda
+    const formDeletar = document.getElementById('formDeletar');
+    if(formDeletar) {
+      formDeletar.addEventListener('submit', async e => {
+        e.preventDefault();
+        const msgDeletar = document.getElementById('msgDeletar');
+        msgDeletar.textContent = '';
+
+        if(!confirm('Tem certeza que deseja apagar a guilda? Esta ação não pode ser desfeita.')) return;
+
+        try {
+          const res = await fetch('/guilda/deletar', { method: 'POST' });
+          const data = await res.json();
+          if(data.sucesso) {
+            msgDeletar.style.color = '#3DD1D9';
+            msgDeletar.textContent = 'Guilda apagada com sucesso! Atualizando...';
+            setTimeout(() => location.reload(), 1500);
+          } else {
+            msgDeletar.style.color = '#ff5555';
+            msgDeletar.textContent = data.erro || 'Erro ao apagar a guilda.';
+          }
+        } catch {
+          msgDeletar.style.color = '#ff5555';
+          msgDeletar.textContent = 'Erro ao comunicar com o servidor.';
+        }
+      });
+    }
+  </script>
+</body>
+</html>
