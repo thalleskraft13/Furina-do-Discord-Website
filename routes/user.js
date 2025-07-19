@@ -240,4 +240,54 @@ router.post("/guilda/deletar", checkAuth, async (req, res) => {
   }
 });
 
+router.get("/recompensas", checkAuth, async (req, res) => {
+  let db = await UserDb.findOne({ id: req.user.discordId });
+
+  if (!db) {
+    let newuser = new UserDb({ id: req.user.discordId });
+    await newuser.save();
+    db = await UserDb.findOne({ id: req.user.discordId });
+  }
+
+  res.render("user/daily", { user: req.user, db });
+});
+
+router.post("/recompensas", checkAuth, async (req, res) => {
+  try {
+    const userId = req.user.discordId;
+    const userDb = await UserDb.findOne({ id: userId });
+
+    if (!userDb) {
+      return res.status(404).json({ erro: "Usuário não encontrado." });
+    }
+
+    if (!userDb.level || userDb.level.ar < 16) {
+      return res.status(403).json({ erro: "Você precisa ser AR 16 ou mais para resgatar." });
+    }
+
+    const agora = Date.now();
+    const ultimoResgate = userDb.daily || 0;
+    const tempoRestante = 86400000 - (agora - ultimoResgate); // 24h em ms
+
+    if (tempoRestante > 0) {
+      return res.status(429).json({
+        erro: "Aguarde para resgatar novamente.",
+        tempoRestante
+      });
+    }
+
+    // Recompensa aleatória entre 60 e 300
+    const recompensa = Math.floor(Math.random() * (300 - 60 + 1)) + 60;
+
+    userDb.primogemas += recompensa;
+    userDb.daily = agora;
+    await userDb.save();
+
+    return res.json({ sucesso: true, recompensa });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ erro: "Erro interno do servidor." });
+  }
+});
+
 module.exports = router;
